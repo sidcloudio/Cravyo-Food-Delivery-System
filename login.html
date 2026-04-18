@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Login - Cravyo</title>
+<link rel="stylesheet" href="food.css">
+
+<style>
+body {
+  background: #f5efe6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Card */
+.login-card {
+  width: 380px;
+  background: #fff;
+  padding: 30px;
+  border-radius: 25px;
+  box-shadow: 8px 8px 0px black;
+  text-align: center;
+}
+
+/* Heading */
+.login-card h1 {
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 10px;
+}
+
+.login-card p {
+  color: #777;
+  margin-bottom: 20px;
+}
+
+/* Inputs */
+.login-card input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+}
+
+/* Button */
+.login-btn {
+  width: 100%;
+  padding: 14px;
+  background: #FF5722;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Link */
+.login-card a {
+  color: #FF5722;
+  text-decoration: none;
+  font-weight: 600;
+}
+</style>
+</head>
+
+<body>
+
+<div class="login-card">
+  <h1>👋 Welcome back!</h1>
+  <p>Login karo aur khana order karo 🔥</p>
+
+  <input type="email" placeholder="Email Address">
+  <input type="password" placeholder="Password">
+
+  <button class="login-btn" onclick="login()">Login → Khana Mangao 🍔</button>
+
+  <p>New user? <a href="sign.html">Sign Up</a></p>
+</div>
+
+<script>
+function login(){
+  alert("Login Success 🚀");
+  window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>

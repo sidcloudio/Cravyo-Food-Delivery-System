@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cravyo – Taste Delivered</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+ <link rel="stylesheet" href="food.css">
+</head>
+<body>
+
+<!-- Cursor -->
+<div class="cursor" id="cursor"></div>
+
+<!-- Cart Widget -->
+<div class="cart-widget" onclick="openCart()"  id="cartWidget">
+  🛒
+  <div class="cart-count" id="cartCount">0</div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast">✅ Item added to cart!</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="logo">
+   <div class="logo-icon"> 
+  <img src="cravyo-logo.png.jpeg" alt="Cravyo Logo">
+</div>
+    <span class="logo-text">Cravyo </span>
+      
+ <ul class="nav-links">
+  <li><a href="#categories">Categories</a></li>
+  <li><a href="#featured">Menu</a></li>
+  <li><a href="#how">How it Works</a></li>
+  <li><a href="#reviews">Reviews</a></li>
+
+  <!-- NEW -->
+  <li><a href="login.html">Login</a></li>
+  <li><a href="sign.html" class="nav-cta">Sign Up</a></li>
+</ul>
+
+  
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="dot"></span>
+      Now delivering in 30 mins ✦ Jaipur & nearby areas
+    </div>
+    <h1>
+      Craving something<br>
+      <span class="highlight">delicious?</span><br>
+      We've got you.
+    </h1>
+      
+    <p>Hot, fresh, and right at your doorstep. Cravyo brings the best local flavors to you — fast, reliable, and always tasty.</p>
+    <div class="hero-search">
+      <input type="text" placeholder="Search for biryani, pizza, burger..." id="searchInput">
+      <button onclick="searchFood()">Search 🔍</button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">500+</div>
+        <div class="stat-label">Menu Items</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">5.4 </div>
+        <div class="stat-label">Average Rating</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">30min</div>
+        <div class="stat-label">Avg Delivery</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-plate">🍛
+      <div class="float-card card1">
+        <span class="fc-icon">⭐</span>
+        <div class="fc-info">
+          <div class="fc-title">Top Rated</div>
+          <div class="fc-val">Biryani House</div>
+        </div>
+      </div>
+      <div class="float-card card2">
+        <span class="fc-icon">🚴</span>
+        <div class="fc-info">
+          <div class="fc-title">Delivery time</div>
+          <div class="fc-val green">28 min</div>
+        </div>
+      </div>
+      <div class="float-card card3">
+        <span class="fc-icon">🔥</span>
+        <div class="fc-info">
+          <div class="fc-title">Today's Special</div>
+          <div class="fc-val">20% OFF</div>
+        </div> 
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section id="categories">
+  <div class="section-header reveal">
+    <div>
+      <div class="section-tag">What are you craving?</div>
+      <h2>Browse by Category</h2>
+    </div>
+    <a href="#" class="view-all">View all →</a>
+  </div>
+  <div class="categories-grid reveal">
+    <div class="cat-card" onclick="filterCategory(this)">
+      <div class="cat-icon">
+        <img src="biryani.jpg">
+         </div>
+      <div class="cat-name">Biryani</div>
+      <div class="cat-count">10 items</div>
+    </div><div class="cat-card" onclick="filterCategory(this)">
+      <div class="cat-icon">
+        <img src="ice.jpg">
+         </div>
+      <div class="cat-name">Beverages</div>
+      <div class="cat-count">8 items</div>
+    </div>
+    <div class="cat-card" onclick="filterCategory(this)">
+      <div class="cat-icon">
+        <img src="pizza.jpg" >
+      </div>
+      <div class="cat-name">Pizza</div>
+      <div class="cat-count">12 items</div>
+    </div>
+    <div class="cat-card" onclick="filterCategory(this)">
+      <div class="cat-icon">
+        <img src="burgers.jpg" >
+      </div>
+      <div class="cat-name">Burgers</div>
+      <div class="cat-count">9 items</div>
+    </div>
+    <div class="cat-card" onclick="filterCategory(this)">
+      <div class="cat-icon">
+        <img src="thali.jpg">
+      </div>
+      <div class="cat-name">Thali</div>
+      <div class="cat-count">6 items</div>
+    </div>
+    <div class="cat-card" onclick="filterCategory(this)">
+      <div class="cat-icon">
+        <img src="noodels (2).jpg">
+      </div>
+      <div class="cat-name">Noodles</div>
+      <div class="cat-count">7 items</div>
+    </div>
+    <div class="cat-card" onclick="filterCategory(this)">
+      <div class="cat-icon">
+        <img src="icecream.jpg" alt="">
+      </div>
+      <div class="cat-name">Icecream</div>
+      <div class="cat-count">12 items</div>
+    </div>
+    <div class="cat-card" onclick="filterCategory(this)">
+      <div class="cat-icon">
+        <img src="roti.avif">
+      </div>
+      <div class="cat-name">Roti/Naan</div>
+      <div class="cat-count">6 items</div>
+    </div>
+<div class="cat-card" onclick="filterCategory(this)">
+      <div class="cat-icon">
+        <img src="sabji.webp">
+      </div>
+      <div class="cat-name">Veg(Sabji)</div>
+      <div class="cat-count">11 items</div>
+    </div>
+    <div class="cat-card" onclick="filterCategory(this)">
+      <div class="cat-icon">
+        <img src="sand.avif">
+      </div>
+      <div class="cat-name"> Sandwich</div>
+      <div class="cat-count">4 items</div>
+    </div>
+    <div class="cat-card" onclick="filterCategory(this)">
+      <div class="cat-icon">
+        <img src="rolls.avif">
+      </div>
+      <div class="cat-name">Rolls & Wraps</div>
+      <div class="cat-count">5 items</div>
+    </div>
+    <div class="cat-card" onclick="filterCategory(this)">
+      <div class="cat-icon">
+        <img src="momos.jpg">
+      </div>
+      <div class="cat-name">Chinese</div>
+      <div class="cat-count">5 items</div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED MENU -->
+<section id="featured" class="featured">
+  <div class="section-header reveal">
+    <div>
+      <div class="section-tag">Chef's Picks</div>
+      <h2>Most Loved Dishes</h2>
+    </div>
+    <a href="#" class="view-all">View full menu →</a>
+  </div>
+  <div class="food-grid" id="foodGrid">
+
+    <div class="food-card reveal">
+      <div class="food-img">
+        <img src="vegbiryani.webp">
+        
+        <div class="food-badge">Bestseller</div>
+        <div class="food-fav" onclick="toggleFav(this)">🤍</div>
+      </div>
+      <div class="food-info">
+        <div class="food-meta">
+          <div>
+            <div class="food-name">Veg Biryani</div>
+            <div class="food-restaurant">🏪 Biryani Paradise</div>
+          </div>
+          <div class="food-rating"><span class="star">★</span> 4.9 (312)</div>
+        </div>
+        <div class="food-tags">
+          <span class="tag">Light</span>
+          <span class="tag">Spicy 🌶️</span>
+          <span class="tag">Aromatic</span>
+          <span class="tag">Veg</span>
+          
+        </div>
+        <div class="food-footer">
+          <div>
+            <div class="food-price">₹249 <span>₹320</span></div>
+            <div class="food-delivery">🕐 <strong>Free delivery</strong> · 25 min</div>
+          </div>
+          <button class="add-btn" onclick="addToCart(this, 'Veg Biryani')">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="food-card reveal">
+      <div class="food-img" style="background:#FFF3E0">
+        <img src="margpizza.webp" alt="">
+        <div class="food-badge veg">Veg</div>
+        <div class="food-fav" onclick="toggleFav(this)">🤍</div>
+      </div>
+      <div class="food-info">
+        <div class="food-meta">
+          <div>
+            <div class="food-name">Margherita Deluxe Pizza</div>
+            <div class="food-restaurant">🏪 Pizza Corner</div>
+          </div>
+          <div class="food-rating"><span class="star">★</span> 4.7 (198)</div>
+        </div>
+        <div class="food-tags">
+          <span class="tag">Cheesy 🧀</span>
+          <span class="tag">Crispy</span>
+          <span class="tag">Veg</span>
+        </div>
+        <div class="food-footer">
+          <div>
+            <div class="food-price">₹199 <span>₹260</span></div>
+            <div class="food-delivery">🕐 <strong>Free delivery</strong> · 30 min</div>
+          </div>
+          <button class="add-btn" onclick="addToCart(this, 'Pizza')">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="food-card reveal">
+      <div class="food-img" style="background:#FFF8E1">
+        <img src="zigburger.webp" alt="">
+        <div class="food-badge">Popular</div>
+        <div class="food-fav" onclick="toggleFav(this)">🤍</div>
+      </div>
+      <div class="food-info">
+        <div class="food-meta">
+          <div>
+            <div class="food-name">Zinger Crunch Burger</div>
+            <div class="food-restaurant">🏪 Burger Nation</div>
+          </div>
+          <div class="food-rating"><span class="star">★</span> 4.8 (421)</div>
+        </div>
+        <div class="food-tags">
+          <span class="tag">Crispy 🍗</span>
+          <span class="tag">Juicy</span>
+          <span class="tag">Non-Veg</span>
+        </div>
+        <div class="food-footer">
+          <div>
+            <div class="food-price">₹179 <span>₹220</span></div>
+            <div class="food-delivery">🕐 <strong>Free delivery</strong> · 20 min</div>
+          </div>
+          <button class="add-btn" onclick="addToCart(this, 'Zinger Burger')">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="food-card reveal">
+      <div class="food-img" style="background:#F3E5F5">
+        <img src="schakka.webp" alt="">
+        <div class="food-badge veg">Veg</div>
+        <div class="food-fav" onclick="toggleFav(this)">🤍</div>
+      </div>
+      <div class="food-info">
+        <div class="food-meta">
+          <div>
+            <div class="food-name">Schezwan Hakka Noodles</div>
+            <div class="food-restaurant">🏪 Wok Express</div>
+          </div>
+          <div class="food-rating"><span class="star">★</span> 4.6 (267)</div>
+        </div>
+        <div class="food-tags">
+          <span class="tag">Spicy 🌶️</span>
+          <span class="tag">Chinese</span>
+          <span class="tag">Veg</span>
+        </div>
+        <div class="food-footer">
+          <div>
+            <div class="food-price">₹149 <span>₹190</span></div>
+            <div class="food-delivery">🕐 <strong>Free delivery</strong> · 22 min</div>
+          </div>
+          <button class="add-btn" onclick="addToCart(this, 'Schezwan Noodles')">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="food-card reveal">
+      <div class="food-img" style="background:#E8F5E9">
+        <img src="daalbati.jpg" alt="">
+        <div class="food-badge veg">Veg</div>
+        <div class="food-fav" onclick="toggleFav(this)">🤍</div>
+      </div>
+      <div class="food-info">
+        <div class="food-meta">
+          <div>
+            <div class="food-name">Rajasthani Dal Baati Thali</div>
+            <div class="food-restaurant">🏪 Rajwada Kitchen</div>
+          </div>
+          <div class="food-rating"><span class="star">★</span> 4.9 (534)</div>
+        </div>
+        <div class="food-tags">
+          <span class="tag">Traditional</span>
+          <span class="tag">Healthy</span>
+          <span class="tag">Veg</span>
+        </div>
+        <div class="food-footer">
+          <div>
+            <div class="food-price">₹219 <span>₹280</span></div>
+            <div class="food-delivery">🕐 <strong>Free delivery</strong> · 35 min</div>
+          </div>
+          <button class="add-btn" onclick="addToCart(this, 'Dal Baati Thali')">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="food-card reveal">
+      <div class="food-img" style="background:#FCE4EC">
+      <img src="jamun.jpg" alt="">
+        <div class="food-badge">New</div>
+        <div class="food-fav" onclick="toggleFav(this)">🤍</div>
+      </div>
+      <div class="food-info">
+        <div class="food-meta">
+          <div>
+            <div class="food-name">Gulab Jamun Cheesecake</div>
+            <div class="food-restaurant">🏪 Sweet Bliss</div>
+          </div>
+          <div class="food-rating"><span class="star">★</span> 4.8 (89)</div>
+        </div>
+        <div class="food-tags">
+          <span class="tag">Sweet 🍬</span>
+          <span class="tag">Fusion</span>
+          <span class="tag">Veg</span>
+        </div>
+        <div class="food-footer">
+          <div>
+            <div class="food-price">₹129 <span>₹160</span></div>
+            <div class="food-delivery">🕐 <strong>₹30 delivery</strong> · 20 min</div>
+          </div>
+          <button class="add-btn" onclick="addToCart(this, 'Gulab Jamun Cheesecake')">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="food-card reveal">
+      <div class="food-img" style="background:#E8F5E9">
+        <img src="mtrpaneer.webp" alt="">
+        <div class="food-badge veg">Veg</div>
+        <div class="food-fav" onclick="toggleFav(this)">🤍</div>
+      </div>
+      <div class="food-info">
+        <div class="food-meta">
+          <div>
+            <div class="food-name">Matar Panneer</div>
+            <div class="food-restaurant">🏪 Rajwada Kitchen</div>
+          </div>
+          <div class="food-rating"><span class="star">★</span> 4.9 (534)</div>
+        </div>
+        <div class="food-tags">
+          <span class="tag">Half/Full</span>
+          <span class="tag">Healthy</span>
+          <span class="tag">Veg</span>
+        </div>
+        <div class="food-footer">
+          <div>
+            <div class="food-price">₹170(Half)<span>₹210</span></div>
+            <div class="food-delivery">🕐 <strong>Free delivery</strong> · 35 min</div>
+          </div>
+          <button class="add-btn" onclick="addToCart(this, 'Matar Panneer')">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="food-card reveal">
+      <div class="food-img" style="background:#E8F5E9">
+        <img src="cafe.avif" alt="">
+        <div class="food-badge veg">Veg</div>
+        <div class="food-fav" onclick="toggleFav(this)">🤍</div>
+      </div>
+      <div class="food-info">
+        <div class="food-meta">
+          <div>
+            <div class="food-name">Cold Coffee</div>
+            <div class="food-restaurant">🏪 Adda Cafe</div>
+          </div>
+          <div class="food-rating"><span class="star">★</span> 7.5 (534)</div>
+        </div>
+        <div class="food-tags">
+          <span class="tag">Tasty</span>
+          <span class="tag">Chocolaty</span>
+          <span class="tag">Refreshing</span>
+        </div>
+        <div class="food-footer">
+          <div>
+            <div class="food-price">₹50<span></div>
+            <div class="food-delivery">🕐 <strong>Free delivery</strong> · 35 min</div>
+          </div>
+          <button class="add-btn" onclick="addToCart(this,'Cold Coffee')">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="food-card reveal">
+      <div class="food-img" style="background:#E8F5E9">
+        <img src="tanduri.webp" alt="">
+        
+        <div class="food-fav" onclick="toggleFav(this)">🤍</div>
+      </div>
+      <div class="food-info">
+        <div class="food-meta">
+          <div>
+            <div class="food-name"> Butter Tandoori Roti</div>
+            <div class="food-restaurant">🏪 Khandewal Dhaba</div>
+          </div>
+          <div class="food-rating"><span class="star">★</span> 5.2(534)</div>
+        </div>
+        <div class="food-tags">
+          <span class="tag">Tasty</span>
+          <span class="tag">Healthy</span>
+          <span class="tag">Fresh</span>
+        </div>
+        <div class="food-footer">
+          <div>
+            <div class="food-price">₹20 <span>₹25</span></div>
+            <div class="food-delivery">🕐 <strong>Free delivery</strong> · 35 min</div>
+          </div>
+          <button class="add-btn" onclick="addToCart(this, 'Butter Tandoori Roti')">+</button>
+        </div>
+      </div>
+    </div>
+   <div class="food-card reveal">
+      <div class="food-img" style="background:#E8F5E9">
+        <img src="rice.avif" alt="">
+        
+        <div class="food-fav" onclick="toggleFav(this)">🤍</div>
+      </div>
+      <div class="food-info">
+        <div class="food-meta">
+          <div>
+            <div class="food-name"> Plain Rice</div>
+            <div class="food-restaurant">🏪 Manmohan Dhaba</div>
+          </div>
+          <div class="food-rating"><span class="star">★</span> 5.2(534)</div>
+        </div>
+        <div class="food-tags">
+          <span class="tag">Tasty</span>
+          <span class="tag">Healthy</span>
+          <span class="tag">Fresh</span>
+        </div>
+        <div class="food-footer">
+          <div>
+            <div class="food-price">₹70 <span>₹100</span></div>
+            <div class="food-delivery">🕐 <strong>Free delivery</strong> · 35 min</div>
+          </div>
+          <button class="add-btn" onclick="addToCart(this, 'Plain Rice')">+</button>
+        </div>
+      </div>
+    </div>
+<div class="food-card reveal">
+      <div class="food-img" style="background:#E8F5E9">
+        <img src="daal.avif" alt="">
+        
+        <div class="food-fav" onclick="toggleFav(this)">🤍</div>
+      </div>
+      <div class="food-info">
+        <div class="food-meta">
+          <div>
+            <div class="food-name"> Dal Tadka</div>
+            <div class="food-restaurant">🏪 Khandewal Dhaba</div>
+          </div>
+          <div class="food-rating"><span class="star">★</span> 5.2(534)</div>
+        </div>
+        <div class="food-tags">
+          <span class="tag">Tasty</span>
+          <span class="tag">Healthy</span>
+          <span class="tag">Fresh</span>
+        </div>
+        <div class="food-footer">
+          <div>
+            <div class="food-price">₹140 <span>₹169</span></div>
+            <div class="food-delivery">🕐 <strong>Free delivery</strong> · 35 min</div>
+          </div>
+          <button class="add-btn" onclick="addToCart(this, 'Dal Tadka')">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="food-card reveal">
+      <div class="food-img" style="background:#E8F5E9">
+        <img src="fries.avif" alt="">
+        
+        <div class="food-fav" onclick="toggleFav(this)">🤍</div>
+      </div>
+      <div class="food-info">
+        <div class="food-meta">
+          <div>
+            <div class="food-name"> French Fries</div>
+            <div class="food-restaurant">🏪 Shine Cafe</div>
+          </div>
+          <div class="food-rating"><span class="star">★</span> 5.7(534)</div>
+        </div>
+        <div class="food-tags">
+          <span class="tag">Tasty</span>
+          <span class="tag">Healthy</span>
+          <span class="tag">Fresh</span>
+        </div>
+        <div class="food-footer">
+          <div>
+            <div class="food-price">₹80</div>
+            <div class="food-delivery">🕐 <strong>Free delivery</strong> · 35 min</div>
+          </div>
+          <button class="add-btn" onclick="addToCart(this ,'French Fries')">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="food-card reveal">
+      <div class="food-img" style="background:#E8F5E9">
+        <img src="sandwich.avif" alt="">
+        
+        <div class="food-fav" onclick="toggleFav(this)">🤍</div>
+      </div>
+      <div class="food-info">
+        <div class="food-meta">
+          <div>
+            <div class="food-name"> Cheese Sandwich</div>
+            <div class="food-restaurant">🏪 krishna Cafe</div>
+          </div>
+          <div class="food-rating"><span class="star">★</span> 5.2(534)</div>
+        </div>
+        <div class="food-tags">
+          <span class="tag">Tasty</span>
+          <span class="tag">Healthy</span>
+          <span class="tag">Fresh</span>
+        </div>
+        <div class="food-footer">
+          <div>
+            <div class="food-price">₹60 <span>₹80</span></div>
+            <div class="food-delivery">🕐 <strong>Free delivery</strong> · 35 min</div>
+          </div>
+          <button class="add-btn" onclick="addToCart(this,'Cheese Sandwich')">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="food-card reveal">
+      <div class="food-img" style="background:#E8F5E9">
+        <img src="roll.avif" alt="">
+        
+        <div class="food-fav" onclick="toggleFav(this)">🤍</div>
+      </div>
+      <div class="food-info">
+        <div class="food-meta">
+          <div>
+            <div class="food-name"> Rolls & Wraps</div>
+            <div class="food-restaurant">🏪 Shub Cafe</div>
+          </div>
+          <div class="food-rating"><span class="star">★</span> 5.4(734)</div>
+        </div>
+        <div class="food-tags">
+          <span class="tag">Tasty</span>
+          <span class="tag">Healthy</span>
+          <span class="tag">Fresh</span>
+        </div>
+        <div class="food-footer">
+          <div>
+            <div class="food-price">₹80</div>
+            <div class="food-delivery">🕐 <strong>Free delivery</strong> · 35 min</div>
+          </div>
+          <button class="add-btn" onclick="addToCart(this,'Rolls & Wraps')">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="food-card reveal">
+      <div class="food-img" style="background:#E8F5E9">
+        <img src="zeera.webp" alt="">
+        
+        <div class="food-fav" onclick="toggleFav(this)">🤍</div>
+      </div>
+      <div class="food-info">
+        <div class="food-meta">
+          <div>
+            <div class="food-name"> Aloo Zeera</div>
+            <div class="food-restaurant">🏪 Shub Cafe</div>
+          </div>
+          <div class="food-rating"><span class="star">★</span> 5.4(734)</div>
+        </div>
+        <div class="food-tags">
+          <span class="tag">Tasty</span>
+          <span class="tag">Healthy</span>
+          <span class="tag">Fresh</span>
+        </div>
+        <div class="food-footer">
+          <div>
+            <div class="food-price">₹70</div>
+            <div class="food-delivery">🕐 <strong>Free delivery</strong> · 35 min</div>
+          </div>
+          <button class="add-btn" onclick="addToCart(this,'Aloo Zeera')">+</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OFFER BANNER -->
+<div class="offer-banner reveal">
+  <div class="offer-content">
+    <div class="offer-tag">✦ Limited Time Offer</div>
+    <h2>Get <em>30% OFF</em> on your first order!</h2>
+    <p>Sign up with your email and enjoy your first meal at half price. No minimum order required. Fresh, hot, delivered fast.</p>
+    <div class="offer-input-wrap">
+      <input type="email" placeholder="Enter your email address...">
+      <button onclick="claimOffer()">Claim Offer 🎉</button>
+    </div>
+  </div>
+  <div class="offer-visual">
+    🎁
+    <div class="offer-discount">
+      <div class="pct">15%</div>
+      <div class="off">OFF</div>
+    </div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="section-header reveal">
+    <div>
+      <div class="section-tag">Simple as 1-2-3</div>
+      <h2>Cravyo Works</h2>
+    </div>
+  </div>
+  <div class="steps-grid">
+    <div class="step-card reveal">
+      <div class="step-num">1</div>
+      <span class="step-icon">📍</span>
+      <h3>Choose Location</h3>
+      <p>Enter your delivery address and we'll show you all restaurants available near you.</p>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-num">2</div>
+      <span class="step-icon">🍽️</span>
+      <h3>Pick Your Food</h3>
+      <p>Browse our curated menu and add your favourite dishes to the cart with one tap.</p>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-num">3</div>
+      <span class="step-icon">💳</span>
+      <h3>Quick Payment</h3>
+      <p>Pay securely via UPI, card, or cash on delivery. It's quick, easy, and safe.</p>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-num">4</div>
+      <span class="step-icon">🚴</span>
+      <h3>Fast Delivery</h3>
+      <p>Sit back and relax! Your food will be at your doorstep in 30 minutes or less.</p>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews" class="testimonials">
+  <div class="section-header reveal">
+    <div>
+      <div class="section-tag">Happy Customers</div>
+      <h2>What people are saying</h2>
+    </div>
+  </div>
+  <div class="reviews-grid">
+    <div class="review-card reveal">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"Ordered Margherita Deluxe Pizza at 10 PM — it arrived in 28 minutes, piping hot! Cravyo  is now my go-to for late-night cravings. Absolutely love it."</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar">👧</div>
+        <div>
+          <div class="reviewer-name">Ruchi Tiwari</div>
+          <div class="reviewer-loc">📍 Mansarovar, Jaipur</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card reveal">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"Best food delivery app in Jaipur! Dal Baati Thali tasted exactly like homemade. Great packaging, no spills, and the delivery boy was so polite."</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar">👦</div>
+        <div>
+          <div class="reviewer-name">Pallav Agarwal</div>
+          <div class="reviewer-loc">📍 Vaishali Nagar, Jaipur</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card reveal">
+      <div class="review-stars">★★★★☆</div>
+      <p class="review-text">"Really impressed with the variety! From pizzas to Rajasthani thalis, they have it all. The 50% off first order deal was amazing. Will definitely reorder!"</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar">🧑</div>
+        <div>
+          <div class="reviewer-name">Aakash</div>
+          <div class="reviewer-loc">📍 Vidhani, Jaipur</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo">
+        <div class="logo">🍽️</div>
+        <span class="logo-text">
+          <span>Cravyo</span>
+      </div>
+      <p>Bringing the finest local flavors right to your doorstep. Fast, fresh, and absolutely delicious — every single time.</p>
+      <div class="socials">
+        <div class="social-btn">📘</div>
+        <div class="social-btn">📸</div>
+        <div class="social-btn">🐦</div>
+        <div class="social-btn">▶️</div>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul class="footer-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Menu</a></li>
+        <li><a href="#">Offers</a></li>
+        <li><a href="#">Track Order</a></li>
+        <li><a href="#">About Us</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Categories</h4>
+      <ul class="footer-links">
+        <li><a href="#">Biryani</a></li>
+        <li><a href="#">Pizza</a></li>
+        <li><a href="#">Burgers</a></li>
+        <li><a href="#">Thali</a></li>
+        <li><a href="#">Desserts</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul class="footer-links">
+        <li><a href="#">📞 +91 8000866929</a></li>
+        <li><a href="#">✉️ siddhant1265542@gmail.com</a></li>
+        <li><a href="#">📍 Jaipur, Rajasthan</a></li>
+        <li><a href="#">🕐 Open 9AM – 11PM</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Cravyo. All rights reserved.</span>
+    <span>Made with 🩷 in Jaipur, Rajasthan 🌸</span>
+  </div>
+</footer>
+<script src="food.js"></script>
+</body>
+</html>

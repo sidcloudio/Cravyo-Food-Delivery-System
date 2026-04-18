@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Signup - Cravyo</title>
+<link rel="stylesheet" href="food.css">
+
+<style>
+body {
+  background: #f5efe6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.signup-card {
+  width: 420px;
+  background: #fff;
+  padding: 30px;
+  border-radius: 25px;
+  box-shadow: 8px 8px 0px black;
+  text-align: center;
+}
+
+.signup-card h1 {
+  font-family: 'Playfair Display', serif;
+}
+
+.signup-card input {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+}
+
+.row {
+  display: flex;
+  gap: 10px;
+}
+
+.signup-btn {
+  width: 100%;
+  padding: 14px;
+  background: #FF5722;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="signup-card">
+  <h1>🎉 Join Cravyo</h1>
+
+  <input type="text" id="fname" placeholder="First Name" autocomplete="off">
+<input type="text" id="lname" placeholder="Last Name" autocomplete="off">
+
+<input type="email" id="email" placeholder="Email" autocomplete="off">
+<input type="tel" id="phone" placeholder="Phone" autocomplete="off">
+
+<input type="password" id="password" placeholder="Password" autocomplete="new-password">
+
+  <button class="signup-btn" onclick="signup()">Account Banao 🚀</button>
+
+  <p>Already have account? <a href="login.html">Login</a></p>
+</div>
+
+<script>
+async function signup() {
+  const data = {
+    first_name: document.getElementById("fname").value,
+    last_name: document.getElementById("lname").value,
+    email: document.getElementById("email").value,
+    phone: document.getElementById("phone").value,
+    password: document.getElementById("password").value
+  };
+
+  const res = await fetch("http://127.0.0.1:5000/signup", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  });
+
+  const result = await res.json();
+
+  if (result.message) {
+    alert("Signup Successful 🎉");
+    window.location.href = "login.html";
+  } else {
+    alert(result.error);
+  }
+}
+</script>
+
+</body>
+</html>
