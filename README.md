@@ -60,7 +60,7 @@ python app.py
 
 ## 🌐 Live Demo
 
-https://cravyo-food-delivery-system.netlify.app/
+http://127.0.0.1:3000/frontend/index.html?vscode-livepreview=true
 
 📸 Screenshots
 
