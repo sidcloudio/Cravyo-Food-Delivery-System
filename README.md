@@ -58,9 +58,9 @@ Run the server
 
 python app.py
 
-Open in browser
+## 🌐 Live Demo
 
-http://127.0.0.1:3000/index.html?vscode-livepreview=true
+https://cravyo-food-delivery-system.netlify.app/
 
 📸 Screenshots
 
