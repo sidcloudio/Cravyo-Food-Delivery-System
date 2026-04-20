@@ -5,12 +5,19 @@ It allows users to browse food items, manage a cart, and securely authenticate u
 🌟 Features
 
 🛒 Add to Cart functionality
+
 🔐 User Login & Signup system
+
 🍽️ Browse food items menu
+
 💾 SQLite database integration
+
 ⚡ Fast and responsive UI
+
 🔒 Password hashing for security
+
 📡 RESTful API-based backend
+
 🛠️ Tech Stack
 
 Frontend: HTML, CSS, JavaScript
@@ -40,11 +47,17 @@ Cravyo-Food-Delivery-System/
 🛠️ Backend Implementation
 
 - Built using Flask (Python)
+  
 - RESTful API architecture for frontend communication
+  
 - SQLite used as lightweight database
+  
 - Passwords are securely hashed before storing
+  
 - Secure authentication system implemented
+  
 - APIs return JSON responses for frontend integration
+  
 
  📡 API Endpoints
 
@@ -54,16 +67,24 @@ Cravyo-Food-Delivery-System/
 | POST   | /signup     | Register new user       |
 | POST   | /login      | User authentication     |
 | POST   | /cart/add   | Add item to cart        |
+
   
 ▶️ How to Run Locally
 
 Clone the repository
+
 git clone https://github.com/sidcloudio/Cravyo-Food-Delivery-System.git
+
 Go to project folder
+
 cd Cravyo-Food-Delivery-System
+
 Install dependencies
+
 pip install flask
+
 Run the server
+
 python app.py
 
 ## 🌐 Live Demo
