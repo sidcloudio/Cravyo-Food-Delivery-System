@@ -2,6 +2,7 @@
 🚀 Cravyo is a full-stack food delivery web application built using HTML, CSS, JavaScript, Python (Flask), and SQLite.
 It allows users to browse food items, manage a cart, and securely authenticate using a backend-powered system.
 
+
 🌟 Features
 
 🛒 Add to Cart functionality
@@ -18,31 +19,51 @@ It allows users to browse food items, manage a cart, and securely authenticate u
 
 📡 RESTful API-based backend
 
+
 🛠️ Tech Stack
 
 Frontend: HTML, CSS, JavaScript
+
 Backend: Python (Flask)
+
 Database: SQLite
+
 
 📁 Project Structure
 
 Cravyo-Food-Delivery-System/
 ├── frontend/
+
 │   ├── index.html
+
 │   ├── login.html
+
 │   ├── sign.html
+
 │   ├── food.css
+
 │   ├── food.js
+
 │   └── images/
+
 │
+
 ├── backend/
+
 │   ├── app.py
+
 │   ├── routes/
+
 │   └── database/
+
 │       └── database.db
+
 │
+
 ├── requirements.txt
+
 └── README.md
+
 
 🛠️ Backend Implementation
 
@@ -87,20 +108,27 @@ Run the server
 
 python app.py
 
+
 ## 🌐 Live Demo
 
 🚧 Not deployed yet
+
 
 📸 Screenshots
 🏠 Homepage
 ![Homepage](frontend/images/homepage.jpeg)
 
+
 🚀 Future Improvements:
 
 💳 Online payment integration
+
 📱 Mobile responsiveness improvement
+
 🧾 Order history feature
+
 🔔 Real-time order tracking system
+
 
 🧑‍💻 Author:
 
