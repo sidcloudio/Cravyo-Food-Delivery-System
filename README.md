@@ -37,6 +37,7 @@ Database: SQLite
 📁 Project Structure
 
 Cravyo-Food-Delivery-System/
+
 ├── frontend/
 
 │   ├── index.html
