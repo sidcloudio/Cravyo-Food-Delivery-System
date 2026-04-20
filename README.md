@@ -35,11 +35,17 @@ Database: SQLite
 
 Cravyo-Food-Delivery-System/
 ├── frontend/
+
 │   ├── index.html
+
 │   ├── login.html
+
 │   ├── sign.html
+
 │   ├── food.css
+
 │   ├── food.js
+
 │   └── images/
 
 │
