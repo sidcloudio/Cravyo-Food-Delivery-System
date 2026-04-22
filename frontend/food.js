@@ -1,61 +1,70 @@
 // ─── CURSOR ───
 const cursor = document.getElementById('cursor');
-document.addEventListener('mousemove', e => {
-  cursor.style.left = e.clientX + 'px';
-  cursor.style.top = e.clientY + 'px';
-});
-document.querySelectorAll('button, a, .cat-card, .food-card, .cart-widget').forEach(el => {
-  el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-  el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-});
+if (cursor) {
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+  });
+  document.querySelectorAll('button, a, .cat-card, .food-card, .cart-widget').forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+  });
+}
 
 // ─── NAV SCROLL ───
 const navbar = document.getElementById('navbar');
-window.addEventListener('scroll', () => {
-  navbar.classList.toggle('scrolled', window.scrollY > 50);
-});
+if (navbar) {
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 50);
+  });
+}
 
-// ─── CART UI + BACKEND ───
-  let cartItems = 0;
-const cartCount = document.getElementById('cartCount');
+// ─── CART STATE ───
 const toast = document.getElementById('toast');
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+const cartCount = document.getElementById('cartCount');
 
-// Track items (optional future use)
-let cart = {};
+function updateCartCount() {
+  if (cartCount) {
+    cartCount.textContent = cart.length;
+  }
+}
 
-function addToCart(btn, name) {
+updateCartCount();
 
-  // 🔁 TOGGLE LOGIC
+// ─── ADD TO CART ───
+function addToCart(btn, name, price) {
+
   if (btn.classList.contains('added')) {
-    
-    // ❌ REMOVE
-    cartItems--;
-    cartCount.textContent = cartItems;
-
+    // REMOVE one item
+    const index = cart.findIndex(item => item.name === name);
+    if (index !== -1) {
+      cart.splice(index, 1);
+    }
     btn.classList.remove('added');
     btn.textContent = '+';
-    btn.style.background = '';
-
-    toast.textContent = `❌ ${name} removed from cart`;
-    
   } else {
-    
-    // ✅ ADD
-    cartItems++;
-    cartCount.textContent = cartItems;
-
+    // ADD item
+    cart.push({ name, price: Number(price) });
     btn.classList.add('added');
     btn.textContent = '✓';
-    btn.style.background = '#4CAF50';
-
-    toast.textContent = `✅ ${name} added to cart!`;
   }
 
-  // 🔔 TOAST SHOW
-  toast.classList.add('show');
-  setTimeout(() => toast.classList.remove('show'), 2000);
+  // SAVE
+  localStorage.setItem("cart", JSON.stringify(cart));
+  console.log("Cart:", cart);
 
+  // COUNT UPDATE
+  updateCartCount();
 
+  // TOAST SHOW
+  if (toast) {
+    toast.textContent = btn.classList.contains('added')
+      ? `✅ ${name} added!`
+      : `❌ ${name} removed!`;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2000);
+  }
 
   // 🔥 BACKEND CALL
   fetch("http://127.0.0.1:5000/add-to-cart", {
@@ -70,17 +79,33 @@ function addToCart(btn, name) {
     })
   })
   .then(res => res.json())
-  .then(data => console.log(data));
+  .then(data => console.log("Backend:", data))
+  .catch(err => console.log("Backend offline, localStorage use ho raha hai"));
 }
 
-// 🛒 OPEN CART
+// ─── CLEAR CART ───  ← YE FIX HAI (pehle addToCart ke andar band tha!)
+function clearCart() {
+  cart = [];
+  localStorage.removeItem("cart");
+  updateCartCount();
+  if (window.location.pathname.endsWith("cart.html")) {
+    window.location.reload();
+  }
+}
+
+// ─── OPEN CART ───
 function openCart() {
-  fetch("http://127.0.0.1:5000/cart/1")
-    .then(res => res.json())
-    .then(data => {
-      let items = data.map(item => `${item[0]} (x${item[1]})`).join("\n");
-      alert(`🛒 Your Cart:\n\n${items}`);
-    });
+  window.location.href = "cart.html";
+}
+
+// ─── PLACE ORDER ───
+function placeOrder() {
+  if (!cart.length) {
+    alert('Cart khali hai! Pehle kuch add karo 😄');
+    return;
+  }
+  alert('Order placed successfully! 🎉');
+  clearCart();
 }
 
 // ─── FAVOURITES ───
@@ -97,22 +122,30 @@ function filterCategory(el) {
 
 // ─── SEARCH ───
 function searchFood() {
-  const val = document.getElementById('searchInput').value.trim();
-  if (val) {
+  const searchInput = document.getElementById('searchInput');
+  if (!searchInput) return;
+  const val = searchInput.value.trim();
+  if (val && toast) {
     toast.textContent = `🔍 Searching for "${val}"...`;
     toast.classList.add('show');
     setTimeout(() => toast.classList.remove('show'), 2000);
   }
 }
-document.getElementById('searchInput').addEventListener('keydown', e => {
-  if (e.key === 'Enter') searchFood();
-});
+
+const searchInput = document.getElementById('searchInput');
+if (searchInput) {
+  searchInput.addEventListener('keydown', e => {
+    if (e.key === 'Enter') searchFood();
+  });
+}
 
 // ─── OFFER ───
 function claimOffer() {
-  toast.textContent = '🎉 Offer claimed!';
-  toast.classList.add('show');
-  setTimeout(() => toast.classList.remove('show'), 3000);
+  if (toast) {
+    toast.textContent = '🎉 Offer claimed!';
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3000);
+  }
 }
 
 // ─── SCROLL REVEAL ───
@@ -140,9 +173,7 @@ async function signup() {
 
   const res = await fetch("http://127.0.0.1:5000/signup", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data)
   });
 
@@ -166,9 +197,7 @@ async function login() {
 
   const res = await fetch("http://127.0.0.1:5000/login", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data)
   });
 
