@@ -1,1 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Cart - Cravyo</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange: #FF5722;
+    --orange-dark: #E64A19;
+    --orange-light: #FF8A65;
+    --cream: #FFF8F0;
+    --brown: #3E2723;
+    --green: #4CAF50;
+    --text-dark: #1A1A1A;
+    --text-mid: #555;
+    --text-light: #888;
+    --card-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #f5f5f5;
+    color: var(--text-dark);
+    min-height: 100vh;
+  }
+
+  /* ── TOP BAR ── */
+  .topbar {
+    background: white;
+    padding: 16px 5%;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border-bottom: 1px solid #eee;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+  .back-btn {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: var(--cream);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    font-size: 20px;
+    text-decoration: none;
+    color: var(--brown);
+    transition: background 0.2s;
+    flex-shrink: 0;
+  }
+  .back-btn:hover { background: #ffe0cc; }
+  .topbar-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--brown);
+  }
+  .topbar-subtitle {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    margin-top: 2px;
+  }
+
+  /* ── MAIN LAYOUT ── */
+  .cart-layout {
+    max-width: 1100px;
+    margin: 30px auto;
+    padding: 0 5%;
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 24px;
+    align-items: start;
+  }
+
+  /* ── RESTAURANT CARD ── */
+  .restaurant-banner {
+    background: white;
+    border-radius: 20px;
+    padding: 20px 22px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    box-shadow: var(--card-shadow);
+    margin-bottom: 16px;
+    border: 1px solid rgba(0,0,0,0.04);
+  }
+  .restaurant-icon {
+    width: 52px; height: 52px;
+    background: var(--cream);
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px;
+    flex-shrink: 0;
+  }
+  .restaurant-name {
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--brown);
+  }
+  .restaurant-meta {
+    font-size: 0.78rem;
+    color: var(--text-light);
+    margin-top: 3px;
+  }
+
+  /* ── CART ITEMS CARD ── */
+  .cart-items-card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: var(--card-shadow);
+    border: 1px solid rgba(0,0,0,0.04);
+    overflow: hidden;
+  }
+  .cart-card-header {
+    padding: 20px 22px 16px;
+    border-bottom: 1px solid #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .cart-card-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--brown);
+  }
+  .item-count-badge {
+    background: var(--orange);
+    color: white;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 50px;
+  }
+
+  /* ── SINGLE CART ITEM ── */
+  .cart-item {
+    display: flex;
+    align-items: center;
+    padding: 18px 22px;
+    border-bottom: 1px solid #f7f7f7;
+    gap: 14px;
+    transition: background 0.2s;
+  }
+  .cart-item:last-child { border-bottom: none; }
+  .cart-item:hover { background: #fafafa; }
+
+  .item-type-dot {
+    width: 18px; height: 18px;
+    border-radius: 4px;
+    border: 2px solid;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .item-type-dot.veg { border-color: var(--green); }
+  .item-type-dot.veg::before { content: ''; width: 8px; height: 8px; background: var(--green); border-radius: 50%; }
+  .item-type-dot.nonveg { border-color: #E53935; }
+  .item-type-dot.nonveg::before { content: ''; width: 8px; height: 8px; background: #E53935; border-radius: 50%; }
+
+  .item-details { flex: 1; }
+  .item-name {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text-dark);
+    margin-bottom: 4px;
+  }
+  .item-customization {
+    font-size: 0.76rem;
+    color: var(--text-light);
+  }
+  .item-price {
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--text-dark);
+    margin-right: 16px;
+    min-width: 60px;
+    text-align: right;
+  }
+
+  /* ── QUANTITY CONTROL ── */
+  .qty-control {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    background: white;
+    border: 2px solid var(--orange);
+    border-radius: 10px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .qty-btn {
+    width: 32px; height: 32px;
+    background: transparent;
+    border: none;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--orange);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.15s;
+  }
+  .qty-btn:hover { background: #fff3ee; }
+  .qty-num {
+    min-width: 28px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--orange);
+  }
+
+  .remove-btn {
+    background: none;
+    border: none;
+    color: #ccc;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 50%;
+    transition: color 0.2s, background 0.2s;
+    flex-shrink: 0;
+  }
+  .remove-btn:hover { color: #E53935; background: #ffeaea; }
+
+  /* ── EMPTY STATE ── */
+  .empty-cart {
+    padding: 60px 20px;
+    text-align: center;
+  }
+  .empty-cart .empty-icon { font-size: 64px; margin-bottom: 16px; }
+  .empty-cart h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--brown);
+    margin-bottom: 8px;
+  }
+  .empty-cart p { color: var(--text-light); margin-bottom: 24px; }
+  .browse-btn {
+    display: inline-block;
+    padding: 12px 28px;
+    background: var(--orange);
+    color: white;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .browse-btn:hover { background: var(--orange-dark); transform: translateY(-2px); }
+
+  /* ── OFFERS ── */
+  .offers-card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: var(--card-shadow);
+    border: 1px solid rgba(0,0,0,0.04);
+    padding: 18px 22px;
+    margin-top: 16px;
+  }
+  .offers-card h3 {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--brown);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .coupon-input-wrap {
+    display: flex;
+    gap: 10px;
+  }
+  .coupon-input {
+    flex: 1;
+    padding: 12px 14px;
+    border: 1.5px solid #eee;
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .coupon-input:focus { border-color: var(--orange); }
+  .coupon-btn {
+    padding: 12px 20px;
+    background: var(--orange);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: background 0.2s;
+  }
+  .coupon-btn:hover { background: var(--orange-dark); }
+
+  /* ── DELIVERY TIPS ── */
+  .tips-card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: var(--card-shadow);
+    border: 1px solid rgba(0,0,0,0.04);
+    padding: 18px 22px;
+    margin-top: 16px;
+  }
+  .tips-card h3 {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--brown);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .tip-options {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .tip-btn {
+    padding: 8px 16px;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    background: white;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    color: var(--text-mid);
+    transition: all 0.2s;
+  }
+  .tip-btn:hover, .tip-btn.active {
+    border-color: var(--orange);
+    color: var(--orange);
+    background: #fff3ee;
+  }
+
+  /* ── BILL CARD (right side) ── */
+  .bill-card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: var(--card-shadow);
+    border: 1px solid rgba(0,0,0,0.04);
+    padding: 22px;
+    position: sticky;
+    top: 90px;
+  }
+  .bill-card h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--brown);
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .bill-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 9px 0;
+    font-size: 0.9rem;
+    color: var(--text-mid);
+  }
+  .bill-row.discount { color: var(--green); }
+  .bill-row.total {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    padding-top: 14px;
+    margin-top: 6px;
+    border-top: 2px dashed #eee;
+  }
+  .bill-row.total span:last-child { color: var(--orange); }
+  .bill-info {
+    background: #f0faf0;
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin: 16px 0;
+    font-size: 0.8rem;
+    color: var(--green);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+  }
+
+  /* ── ADDRESS ── */
+  .address-card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: var(--card-shadow);
+    border: 1px solid rgba(0,0,0,0.04);
+    padding: 20px 22px;
+    margin-bottom: 16px;
+  }
+  .address-card h3 {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--brown);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .address-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px;
+    border: 1.5px solid #eee;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  .address-row.active { border-color: var(--orange); background: #fff8f5; }
+  .address-icon { font-size: 22px; flex-shrink: 0; }
+  .address-text { font-size: 0.85rem; color: var(--text-mid); }
+  .address-label { font-weight: 600; font-size: 0.9rem; color: var(--text-dark); margin-bottom: 2px; }
+
+  /* ── PLACE ORDER BTN ── */
+  .place-order-btn {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+    color: white;
+    border: none;
+    border-radius: 14px;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    margin-top: 18px;
+    box-shadow: 0 8px 24px rgba(255,87,34,0.35);
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .place-order-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(255,87,34,0.45); }
+  .place-order-btn:active { transform: translateY(0); }
+  .btn-left { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; }
+  .btn-items { font-size: 0.75rem; font-weight: 400; opacity: 0.85; }
+  .btn-total { font-size: 1rem; font-weight: 700; }
+  .btn-right { font-size: 0.95rem; }
+
+  /* ── DELIVERY INFO BAR ── */
+  .delivery-bar {
+    background: linear-gradient(135deg, #1A1A2E, #16213E);
+    border-radius: 14px;
+    padding: 14px 18px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: white;
+  }
+  .delivery-bar .dicon { font-size: 28px; }
+  .delivery-bar .dtitle { font-weight: 600; font-size: 0.9rem; }
+  .delivery-bar .dsub { font-size: 0.76rem; color: rgba(255,255,255,0.65); margin-top: 2px; }
+  .delivery-time {
+    margin-left: auto;
+    text-align: right;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #4CAF50;
+  }
+  .delivery-time span { display: block; font-size: 0.7rem; font-weight: 400; color: rgba(255,255,255,0.5); }
+
+  /* ── SAFETY CARD ── */
+  .safety-card {
+    background: #f9f9f9;
+    border-radius: 14px;
+    padding: 14px 16px;
+    margin-top: 14px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 0.8rem;
+    color: var(--text-light);
+    border: 1px solid #eee;
+  }
+  .safety-card .sicon { font-size: 22px; flex-shrink: 0; }
+
+  /* ── SUCCESS OVERLAY ── */
+  .success-overlay {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(6px);
+  }
+  .success-overlay.show { display: flex; }
+  .success-modal {
+    background: white;
+    border-radius: 28px;
+    padding: 50px 40px;
+    text-align: center;
+    max-width: 380px;
+    width: 90%;
+    animation: popIn 0.4s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  @keyframes popIn { from { opacity: 0; transform: scale(0.7); } to { opacity: 1; transform: scale(1); } }
+  .success-icon { font-size: 70px; margin-bottom: 18px; }
+  .success-modal h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: var(--brown);
+    margin-bottom: 10px;
+  }
+  .success-modal p { color: var(--text-mid); margin-bottom: 28px; line-height: 1.6; }
+  .order-id { background: var(--cream); border-radius: 10px; padding: 10px; font-weight: 700; color: var(--orange); margin-bottom: 24px; font-size: 0.9rem; }
+  .track-btn {
+    display: block;
+    background: var(--orange);
+    color: white;
+    text-decoration: none;
+    padding: 14px;
+    border-radius: 14px;
+    font-weight: 700;
+    transition: background 0.2s;
+  }
+  .track-btn:hover { background: var(--orange-dark); }
+
+  @media (max-width: 768px) {
+    .cart-layout { grid-template-columns: 1fr; }
+    .bill-card { position: static; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <a href="index.html" class="back-btn">←</a>
+  <div>
+    <div class="topbar-title">🛒 Your Cart</div>
+    <div class="topbar-subtitle" id="topbarSub">Loading...</div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="cart-layout">
+
+  <!-- LEFT COLUMN -->
+  <div>
+
+    <!-- Delivery Info Bar -->
+    <div class="delivery-bar">
+      <div class="dicon">🛵</div>
+      <div>
+        <div class="dtitle">Delivery to your location</div>
+        <div class="dsub">Jaipur, Rajasthan</div>
+      </div>
+      <div class="delivery-time">
+        ~28 min
+        <span>estimated</span>
+      </div>
+    </div>
+
+    <!-- Restaurant Banner -->
+    <div class="restaurant-banner">
+      <div class="restaurant-icon">🍽️</div>
+      <div>
+        <div class="restaurant-name">Cravyo Kitchen</div>
+        <div class="restaurant-meta">⭐ 4.8 · Fast Delivery · Jaipur</div>
+      </div>
+    </div>
+
+    <!-- Cart Items Card -->
+    <div class="cart-items-card">
+      <div class="cart-card-header">
+        <h2>Order Items</h2>
+        <span class="item-count-badge" id="itemCountBadge">0 items</span>
+      </div>
+      <div id="cartItemsContainer">
+        <!-- items render here -->
+      </div>
+    </div>
+
+    <!-- Coupon / Offers -->
+    <div class="offers-card">
+      <h3>🏷️ Apply Coupon</h3>
+      <div class="coupon-input-wrap">
+        <input class="coupon-input" placeholder="Enter coupon code (e.g. CRAVYO30)" id="couponInput">
+        <button class="coupon-btn" onclick="applyCoupon()">Apply</button>
+      </div>
+      <div id="couponMsg" style="margin-top:10px; font-size:0.82rem; color:var(--green); font-weight:600; display:none;"></div>
+    </div>
+
+    <!-- Tips -->
+    <div class="tips-card">
+      <h3>💝 Tip your Delivery Partner</h3>
+      <div class="tip-options">
+        <button class="tip-btn" onclick="selectTip(this, 0)">No Tip</button>
+        <button class="tip-btn" onclick="selectTip(this, 10)">₹10</button>
+        <button class="tip-btn" onclick="selectTip(this, 20)">₹20</button>
+        <button class="tip-btn" onclick="selectTip(this, 30)">₹30</button>
+        <button class="tip-btn" onclick="selectTip(this, 50)">₹50</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- RIGHT COLUMN -->
+  <div>
+
+    <!-- Address -->
+    <div class="address-card">
+      <h3>📍 Delivery Address</h3>
+      <div class="address-row active">
+        <div class="address-icon">🏠</div>
+        <div>
+          <div class="address-label">Home</div>
+          <div class="address-text">Jaipur, Rajasthan, 302001</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bill Card -->
+    <div class="bill-card">
+      <h2>Bill Details</h2>
+      <div class="bill-row">
+        <span>Item Total</span>
+        <span id="billSubtotal">₹0</span>
+      </div>
+      <div class="bill-row">
+        <span>Delivery Fee</span>
+        <span id="billDelivery">Free</span>
+      </div>
+      <div class="bill-row">
+        <span>Platform Fee</span>
+        <span>₹5</span>
+      </div>
+      <div class="bill-row">
+        <span>GST & Taxes</span>
+        <span id="billTax">₹0</span>
+      </div>
+      <div class="bill-row discount" id="discountRow" style="display:none;">
+        <span>🏷️ Coupon Discount</span>
+        <span id="billDiscount">-₹0</span>
+      </div>
+      <div class="bill-row" id="tipRow" style="display:none;">
+        <span>💝 Delivery Tip</span>
+        <span id="billTip">₹0</span>
+      </div>
+      <div class="bill-row total">
+        <span>To Pay</span>
+        <span id="billTotal">₹5</span>
+      </div>
+
+      <div class="bill-info">
+        <span>🛡️</span>
+        Your order is protected by our Safe Delivery Guarantee
+      </div>
+
+      <button class="place-order-btn" onclick="placeOrder()">
+        <div class="btn-left">
+          <span class="btn-items" id="btnItemsCount">0 items</span>
+          <span class="btn-total" id="btnTotal">₹5</span>
+        </div>
+        <div class="btn-right">Place Order →</div>
+      </button>
+
+      <div class="safety-card">
+        <span class="sicon">🔒</span>
+        <span>Safe & secure payments. Easy returns. 100% authentic products.</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SUCCESS OVERLAY -->
+<div class="success-overlay" id="successOverlay">
+  <div class="success-modal">
+    <div class="success-icon">🎉</div>
+    <h2>Order Placed!</h2>
+    <p>Aapka order successfully place ho gaya hai! Delivery partner aapke paas jaldi pahunchega.</p>
+    <div class="order-id" id="orderId">Order #CR-0000</div>
+    <a href="index.html" class="track-btn">Back to Home 🏠</a>
+  </div>
+</div>
+
+<script>
+  // ── STATE ──
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  let tipAmount = 0;
+  let discountAmount = 0;
+  const PLATFORM_FEE = 5;
+  const TAX_RATE = 0.05; // 5% GST
+
+  // ── RENDER CART ITEMS ──
+  function renderCart() {
+    const container = document.getElementById('cartItemsContainer');
+    const badge = document.getElementById('itemCountBadge');
+    const topbarSub = document.getElementById('topbarSub');
+
+    if (cart.length === 0) {
+      container.innerHTML = `
+        <div class="empty-cart">
+          <div class="empty-icon">🛒</div>
+          <h3>Cart is Empty</h3>
+          <p>Koi item nahi mila. Apna favourite khana add karo!</p>
+          <a href="index.html" class="browse-btn">Menu Dekhein 🍽️</a>
+        </div>`;
+      badge.textContent = '0 items';
+      topbarSub.textContent = 'Add items to continue';
+      updateBill();
+      return;
+    }
+
+    badge.textContent = `${cart.length} item${cart.length > 1 ? 's' : ''}`;
+    topbarSub.textContent = `${cart.length} item${cart.length > 1 ? 's' : ''} added`;
+
+    // Group duplicate items
+    const grouped = {};
+    cart.forEach(item => {
+      if (grouped[item.name]) {
+        grouped[item.name].qty += 1;
+        grouped[item.name].price = item.price;
+      } else {
+        grouped[item.name] = { name: item.name, price: item.price, qty: 1 };
+      }
+    });
+
+    container.innerHTML = Object.values(grouped).map(item => `
+      <div class="cart-item" id="item-${encodeURIComponent(item.name)}">
+        <div class="item-type-dot veg"></div>
+        <div class="item-details">
+          <div class="item-name">${item.name}</div>
+          <div class="item-customization">Regular · No customization</div>
+        </div>
+        <div class="item-price">₹${item.price * item.qty}</div>
+        <div class="qty-control">
+          <button class="qty-btn" onclick="changeQty('${item.name}', -1)">−</button>
+          <span class="qty-num">${item.qty}</span>
+          <button class="qty-btn" onclick="changeQty('${item.name}', 1)">+</button>
+        </div>
+        <button class="remove-btn" onclick="removeItem('${item.name}')" title="Remove">✕</button>
+      </div>
+    `).join('');
+
+    updateBill();
+  }
+
+  // ── CHANGE QUANTITY ──
+  function changeQty(name, delta) {
+    if (delta === 1) {
+      const existing = cart.find(i => i.name === name);
+      if (existing) cart.push({ name: existing.name, price: existing.price });
+    } else {
+      const idx = cart.findLastIndex(i => i.name === name);
+      if (idx !== -1) cart.splice(idx, 1);
+    }
+    saveAndRender();
+  }
+
+  // ── REMOVE ITEM ──
+  function removeItem(name) {
+    cart = cart.filter(i => i.name !== name);
+    saveAndRender();
+  }
+
+  // ── SAVE & RENDER ──
+  function saveAndRender() {
+    localStorage.setItem("cart", JSON.stringify(cart));
+    renderCart();
+  }
+
+  // ── BILL CALCULATION ──
+  function updateBill() {
+    const grouped = {};
+    cart.forEach(item => {
+      if (grouped[item.name]) grouped[item.name].total += item.price;
+      else grouped[item.name] = { total: item.price };
+    });
+    const subtotal = Object.values(grouped).reduce((s, i) => s + i.total, 0);
+    const tax = Math.round(subtotal * TAX_RATE);
+    const deliveryFee = subtotal > 0 ? (subtotal >= 199 ? 0 : 30) : 0;
+    const total = subtotal + tax + PLATFORM_FEE + deliveryFee + tipAmount - discountAmount;
+
+    document.getElementById('billSubtotal').textContent = `₹${subtotal}`;
+    document.getElementById('billDelivery').textContent = deliveryFee === 0 ? (subtotal > 0 ? 'FREE 🎉' : '₹0') : `₹${deliveryFee}`;
+    document.getElementById('billTax').textContent = `₹${tax}`;
+    document.getElementById('billTotal').textContent = `₹${Math.max(total, subtotal > 0 ? PLATFORM_FEE : 0)}`;
+    document.getElementById('btnTotal').textContent = `₹${Math.max(total, subtotal > 0 ? PLATFORM_FEE : 0)}`;
+    document.getElementById('btnItemsCount').textContent = `${cart.length} item${cart.length !== 1 ? 's' : ''}`;
+  }
+
+  // ── COUPON ──
+  function applyCoupon() {
+    const code = document.getElementById('couponInput').value.trim().toUpperCase();
+    const msg = document.getElementById('couponMsg');
+    const discountRow = document.getElementById('discountRow');
+
+    const coupons = {
+      'CRAVYO30': 30,
+      'FIRST50': 50,
+      'SAVE20': 20
+    };
+
+    if (coupons[code]) {
+      discountAmount = coupons[code];
+      msg.textContent = `✅ Coupon applied! ₹${discountAmount} discount mila!`;
+      msg.style.color = 'var(--green)';
+      msg.style.display = 'block';
+      discountRow.style.display = 'flex';
+      document.getElementById('billDiscount').textContent = `-₹${discountAmount}`;
+    } else {
+      discountAmount = 0;
+      msg.textContent = '❌ Invalid coupon code.';
+      msg.style.color = '#E53935';
+      msg.style.display = 'block';
+      discountRow.style.display = 'none';
+    }
+    updateBill();
+  }
+
+  // ── TIP ──
+  function selectTip(btn, amount) {
+    document.querySelectorAll('.tip-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    tipAmount = amount;
+    const tipRow = document.getElementById('tipRow');
+    if (amount > 0) {
+      tipRow.style.display = 'flex';
+      document.getElementById('billTip').textContent = `₹${amount}`;
+    } else {
+      tipRow.style.display = 'none';
+    }
+    updateBill();
+  }
+
+  // ── PLACE ORDER ──
+  function placeOrder() {
+    if (cart.length === 0) {
+      alert('Cart khali hai! Pehle kuch add karo 😄');
+      return;
+    }
+    const orderId = 'CR-' + Math.floor(Math.random() * 90000 + 10000);
+    document.getElementById('orderId').textContent = `Order #${orderId}`;
+    document.getElementById('successOverlay').classList.add('show');
+    localStorage.removeItem('cart');
+    cart = [];
+  }
+
+  // ── POLYFILL for findLastIndex ──
+  if (!Array.prototype.findLastIndex) {
+    Array.prototype.findLastIndex = function(fn) {
+      for (let i = this.length - 1; i >= 0; i--) {
+        if (fn(this[i])) return i;
+      }
+      return -1;
+    };
+  }
+
+  // ── INIT ──
+  renderCart();
+</script>
+
+</body>
+</html>
 
